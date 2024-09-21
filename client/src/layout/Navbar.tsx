@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
 import Icons from '../component/Icons'
-import { Link, useParams, useRoutes } from 'react-router-dom';
+import { Link, useRoutes } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Profile from '../assets/image/6.jpg';
 
@@ -44,11 +43,9 @@ export const lists = [
 ];
 
 const Navbar = () => {
-    const [currentList, setCurrentList] = useState(lists[1])
     const location = useLocation();
-
-    // Access the current pathname
     const pathname = location.pathname.slice(6);
+
     return (
         <div className="w-full md:mt-6 flex p-1 space-x-1 md:space-x-6">
 

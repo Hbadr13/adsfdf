@@ -1,11 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
 import ListDetail from './pages/list/ListDetail'
 import Navbar from './layout/Navbar';
+import Home from './pages/Home';
 function App() {
 
   return (

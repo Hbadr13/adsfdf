@@ -59,7 +59,6 @@ const MenuIcon = () => <svg width="35" height="35" viewBox="0 0 104 101" fill="n
         </linearGradient>
     </defs>
 </svg>
-// Ensure that these are valid React components
 const icons = {
     LoadingIcon,
     MenuIcon,
