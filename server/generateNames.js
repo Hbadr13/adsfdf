@@ -15,4 +15,4 @@ const generateNames = ({ length }) => {
 const names = generateNames({ length: 10000000 });
 
 // Write to a JSON file
-fs.writeFileSync('1-thousand-names.json', JSON.stringify(names, null, 2));
+fs.writeFileSync('names/10-million.json', JSON.stringify(names, null, 2));
