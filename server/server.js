@@ -11,27 +11,22 @@ const tenMillionNames = require('./names/10-million.json');
 app.use(express.json());
 app.use(cors());
 
-/**
- * Helper function to handle pagination, sorting, and most frequent names
- */
+
 const handleNamesRoute = (namesArray, req, res, calculateFrequent = true) => {
     const page = parseInt(req.query.page) || 1;
+    const character = (req.query.character || 'A')
     const limit = parseInt(req.query.limit) || 5000;
     const start = (page - 1) * limit;
     const end = start + limit;
 
-    // Sort names alphabetically
     namesArray.sort((a, b) => a.localeCompare(b));
 
-    // Slice the subset for the requested page
-    const namesSubset = namesArray.slice(start, end);
-
-    // Count occurrences of each name
+    const namesSubset = namesArray.slice(Array.from(namesArray).findIndex((it) => String(it[0]).toUpperCase() == character)).slice(start, end);
+    console.log(namesSubset, start, end)
 
 
     let mostFrequentNames = [];
     if (calculateFrequent) {
-        // Get the top 3 most frequent names
         const nameCounts = namesArray.reduce((acc, name) => {
             acc[name] = (acc[name] || 0) + 1;
             return acc;
@@ -39,20 +34,17 @@ const handleNamesRoute = (namesArray, req, res, calculateFrequent = true) => {
         mostFrequentNames = Object.entries(nameCounts)
             .sort(([, countA], [, countB]) => countB - countA)
             .slice(0, 3)
-            .map(([name, count]) => ({ name, count })); // Return name and count as an object
+            .map(([name, count]) => ({ name, count }));
     }
 
-    // Prepare info object including the total length and the most frequent names
     const info = {
         length: namesArray.length,
         mostFrequentNames
     };
 
-    // Send the response
     res.status(200).json({ list: namesSubset, info });
 };
 
-// Routes
 app.get('/1-hundred-names', (req, res) => {
     handleNamesRoute(hundredNames, req, res);
 });
@@ -70,7 +62,7 @@ app.get('/1-million-names', (req, res) => {
 });
 
 app.get('/10-million-names', (req, res) => {
-    handleNamesRoute(tenMillionNames, req, res, false); // Disable most frequent names calculation
+    handleNamesRoute(tenMillionNames, req, res, false);
 });
 
 app.listen(3333, () => {
