@@ -30,3 +30,32 @@ body {
     background-color: rgba(40, 173, 210, 0.789);
     border-radius: 20px;
 }
+
+@keyframes notFound {
+    0% {
+        opacity: 0;
+        right: -400px;
+    }
+
+    20% {
+        opacity: 1;
+        right: 20px;
+    }
+
+    80% {
+        opacity: 1;
+        right: 20px;
+    }
+
+    100% {
+        opacity: 0;
+        right: -400px;
+    }
+}
+
+.characterNotFoundAnimate {
+
+    right: -400px;
+    opacity: 0;
+    animation: notFound 4s;
+}

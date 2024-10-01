@@ -20,26 +20,34 @@ const handleNamesRoute = (namesArray, req, res, calculateFrequent = true) => {
     const end = start + limit;
 
     namesArray.sort((a, b) => a.localeCompare(b));
-
-    const namesSubset = namesArray.slice(Array.from(namesArray).findIndex((it) => String(it[0]).toUpperCase() == character)).slice(start, end);
-    console.log(namesSubset, start, end)
+    const index = Array.from(namesArray).findIndex((it) => String(it[0]).toUpperCase() == character)
+    const namesSubset = namesArray.slice(index == -1 ? 0 : index).slice(start, end);
 
 
     let mostFrequentNames = [];
+    let characterCounts = [];
+    characterCounts = namesArray.reduce((acc, name) => {
+        acc[name[0].toUpperCase()] = (acc[name[0].toUpperCase()] || 0) + 1;
+        return acc;
+    }, {});
     if (calculateFrequent) {
         const nameCounts = namesArray.reduce((acc, name) => {
             acc[name] = (acc[name] || 0) + 1;
             return acc;
         }, {});
+
+
         mostFrequentNames = Object.entries(nameCounts)
             .sort(([, countA], [, countB]) => countB - countA)
             .slice(0, 3)
             .map(([name, count]) => ({ name, count }));
     }
 
+    console.log('characterCounts', characterCounts)
     const info = {
         length: namesArray.length,
-        mostFrequentNames
+        mostFrequentNames,
+        characterCounts
     };
 
     res.status(200).json({ list: namesSubset, info });
