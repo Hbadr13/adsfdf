@@ -93,8 +93,7 @@ const ListDetailComp = ({ currentList }: { currentList: any }) => {
 
     return (
         <div className="">
-            {characterNotFound && <CharacterNotFound character={characterNotFound} />
-            }
+            {characterNotFound && <CharacterNotFound character={characterNotFound} />}
             {
                 waitData == 'done' ?
                     <div className=" relative w-full   mt-0 md:mt-6 flex flex-row-reverse justify-center   space-x-0  md:space-x-reverse   md:space-x-6 text-vz-dark-v0 ">
